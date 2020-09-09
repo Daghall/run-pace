@@ -1,13 +1,23 @@
 # run-pace
-Calculate running pace
+Calculate running pace, time or length by providing the other two.
 
 # Installation
-TODO
+```npm install -g run-pace```
 
 # Using
-TODO
+```run-pace -t <time> -l <length> -p <pace> [-i]```
 
-## Parameters
+Two of "time", "length" and "pace" must be provided.
+
+```
+Parameters:
+   -l, --length,    <value><unit> (10km, 10mi, 10000m, hm, ma)
+   -p, --pace,      <value>/<unit> (4:30/km, 4m30s/mi)
+   -t, --time,      <value> (11:23, 11min23sec, 11m23s)
+   -i, --imperial,  force imperial output
+```
+
+## Parameters in detail
 
 ### Time
 
@@ -71,3 +81,9 @@ If pace is provided in miles, imperial output is enabled.
 `<time>` as specified [above](#time)
 
 `<unit>` is `km` or `mi`
+
+---
+
+### Imperial
+
+Default output is kilometers. Use this switch to force output in miles.

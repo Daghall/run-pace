@@ -24,7 +24,7 @@ try {
   } else if (options.pace && options.length) {
     result = runPace.calculateTime(options);
   } else {
-    throw new Error("At least two of \"time\", \"length\" and \"pace\" must be provided");
+    throw new Error("Two of \"time\", \"length\" and \"pace\" must be provided");
   }
 
   process.stdout.write(`${result}\n`);
