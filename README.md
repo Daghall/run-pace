@@ -36,7 +36,7 @@ Can be provided in the following formats:
 Only one unit needs to be provided.
 
 - `<d>`is in the format `days`, `day` or `d`
-- `<h>`is in the format `hours`, `hrs` or `h`
+- `<h>`is in the format `hours`, `hour`, hrs` or `h`
 - `<m>`is in the format `mins`, `min` or `m`
 - `<s>`is in the format `secs`, `sec` or `s`
 

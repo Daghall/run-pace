@@ -40,6 +40,11 @@ describe("parse", () => {
       expect(result).to.equal(172800);
     });
 
+    it("parses time in Xhour form", () => {
+      const result = parse.time("2hour");
+      expect(result).to.equal(7200);
+    });
+
     it("parses time case-insensitive", () => {
       const result = parse.time("5MIN30S");
       expect(result).to.equal(330);
