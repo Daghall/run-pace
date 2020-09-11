@@ -20,6 +20,11 @@ describe("run pace", () => {
       expect(result).to.equal("6:38/mi");
     });
 
+    it("miles given, force metric", () => {
+      const result = rp.calculatePace({time: "14:30", length: "2mi", metric: true});
+      expect(result).to.equal("4:30/km");
+    });
+
     it("miles", () => {
       const result = rp.calculatePace({time: "4min", length: "1mi"});
       expect(result).to.equal("4:00/mi");
@@ -82,6 +87,11 @@ describe("run pace", () => {
     it("pace per kilometer, force imperial", () => {
       const result = rp.calculateLength({pace: "4:30/km", time: "45min", imperial: true});
       expect(result).to.equal("6.21 miles");
+    });
+
+    it("pace per mile, force metric", () => {
+      const result = rp.calculateLength({pace: "7:15/mi", time: "13m30s", metric: true});
+      expect(result).to.equal("3 km");
     });
 
     it("pace per mile, time in mm:ss form", () => {
