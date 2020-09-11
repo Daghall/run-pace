@@ -1,6 +1,25 @@
 # run-pace
 Calculate running pace, time or length by providing the other two.
 
+# Table of contents
+<!-- toc start -->
+ - [Installation](#installation)
+ - [Using](#using)
+   - [Parameters in detail](#parameters-in-detail)
+     - [Time](#time)
+       - [`[[dd:][hh:]mm:ss`](#ddhhmmss)
+         - [Examples](#examples)
+       - [`X<d>Y<h>Z<m>W<s>`](#xdyhzmws)
+         - [Examples](#examples)
+     - [Length](#length)
+       - [`X<unit>`](#xunit)
+       - [`<constant>`](#constant)
+         - [Examples](#examples)
+     - [Pace](#pace)
+       - [`<time>/<unit>`](#timeunit)
+     - [Imperial](#imperial)
+<!-- toc end -->
+
 # Installation
 ```npm install -g run-pace```
 
