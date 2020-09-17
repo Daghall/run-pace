@@ -10,6 +10,7 @@ const flags = [
   {short: "p", long: "pace"},
   {short: "t", long: "time"},
   {short: "i", long: "imperial"},
+  {short: "m", long: "metric"},
 ];
 
 
@@ -34,6 +35,7 @@ try {
   + "   -l, --length,    <value><unit> (10km, 10mi, 10000m, hm, ma)\n"
   + "   -p, --pace,      <value>/<unit> (4:30/km, 4m30s/mi)\n"
   + "   -t, --time,      <value> (11:23, 11min23sec, 11m23s)\n"
-  + "   -i, --imperial,  force imperial output\n",
+  + "   -i, --imperial,  force imperial output\n"
+  + "   -m, --metric,    force metric output\n",
   );
 }
