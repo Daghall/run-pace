@@ -44,6 +44,26 @@ describe("run pace", () => {
       const fn = rp.calculatePace.bind(null, {time: "4:00/km"});
       expect(fn).to.throw();
     });
+
+    it("1 km in 60 seconds", () => {
+      const result = rp.calculatePace({time: "60s", length: "1km"});
+      expect(result).to.equal("1:00/km");
+    });
+
+    it("1 km in 59 seconds", () => {
+      const result = rp.calculatePace({time: "59s", length: "1km"});
+      expect(result).to.equal("0:59/km");
+    });
+
+    it("1 km in 1 second", () => {
+      const result = rp.calculatePace({time: "1s", length: "1km"});
+      expect(result).to.equal("0:01/km");
+    });
+
+    it("3 km in 1 second", () => {
+      const result = rp.calculatePace({time: "1s", length: "3km"});
+      expect(result).to.equal("0:00/km");
+    });
   });
 
   describe("calculateTime", () => {
