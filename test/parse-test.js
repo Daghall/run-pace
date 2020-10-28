@@ -50,24 +50,24 @@ describe("parse", () => {
       expect(result).to.equal(330);
     });
 
-    it("returns NaN if invalid input", () => {
-      const result = parse.time("-");
-      expect(result).to.be.NaN;
+    it("throws if invalid input", () => {
+      const fn = () => parse.time("-");
+      expect(fn).to.throw(Error, "Time is missing one or more units: -");
     });
 
-    it("returns NaN if argument is not a string", () => {
-      const result = parse.time(null);
-      expect(result).to.be.NaN;
+    it("throws if argument is not a string", () => {
+      const fn = () => parse.time(null);
+      expect(fn).to.throw(Error, "Time argument must be a string");
     });
 
-    it("returns NaN if missing unit", () => {
-      const result = parse.time("2m1");
-      expect(result).to.be.NaN;
+    it("throws if missing unit", () => {
+      const fn = () => parse.time("2m1");
+      expect(fn).to.throw(Error, "Time is missing one or more units: 2m1");
     });
 
-    it("returns NaN if bad format", () => {
-      const result = parse.time("23:a7");
-      expect(result).to.be.NaN;
+    it("throws if bad format", () => {
+      const fn = () => parse.time("23:a7");
+      expect(fn).to.throw(Error, "Time format not recognized: 23:a7");
     });
   });
 
@@ -117,9 +117,9 @@ describe("parse", () => {
       expect(result).to.equal(21098);
     });
 
-    it("returns NaN if unregnized format", () => {
-      const result = parse.length("100yds");
-      expect(result).to.be.NaN;
+    it("throws if unregnized format", () => {
+      const fn = () => parse.length("100yds");
+      expect(fn).to.throw(Error, "Unrecognized length unit: yds");
     });
 
     it("parses length case-insensitive", () => {
@@ -127,24 +127,24 @@ describe("parse", () => {
       expect(result).to.equal(1500);
     });
 
-    it("returns NaN if invalid input", () => {
-      const result = parse.length("-5km");
-      expect(result).to.be.NaN;
+    it("throws if invalid input", () => {
+      const fn = () => parse.length("-5km");
+      expect(fn).to.throw(Error, "Length format not recognized: -5km");
     });
 
-    it("returns NaN if argument is not a string", () => {
-      const result = parse.length(null);
-      expect(result).to.be.NaN;
+    it("throws if argument is not a string", () => {
+      const fn = () => parse.length(null);
+      expect(fn).to.throw(Error, "Length argument must be a string");
     });
 
-    it("returns NaN if missing unit", () => {
-      const result = parse.length("2");
-      expect(result).to.be.NaN;
+    it("throws if missing unit", () => {
+      const fn = () => parse.length("2");
+      expect(fn).to.throw(Error, "Length is missing unit: 2");
     });
 
-    it("returns NaN if bad format", () => {
-      const result = parse.length("a7km");
-      expect(result).to.be.NaN;
+    it("throws if bad format", () => {
+      const fn = () => parse.length("a7km");
+      expect(fn).to.throw(Error, "Length format not recognized: a7km");
     });
   });
 
@@ -169,19 +169,19 @@ describe("parse", () => {
       expect(result).to.equal(0.243);
     });
 
-    it("returns NaN if unsupported length unit", () => {
-      const result = parse.pace("1s/m");
-      expect(result).to.be.NaN;
+    it("throws if unsupported length unit", () => {
+      const fn = () => parse.pace("1s/m");
+      expect(fn).to.throw(Error, "Pace length unit only supports: km, mi");
     });
 
-    it("returns NaN if argument is not a string", () => {
-      const result = parse.pace(null);
-      expect(result).to.be.NaN;
+    it("throws if argument is not a string", () => {
+      const fn = () => parse.pace(null);
+      expect(fn).to.throw(Error, "Pace argument must be a string");
     });
 
-    it("returns NaN if bad format", () => {
-      const result = parse.pace("2:a7/km");
-      expect(result).to.be.NaN;
+    it("throws if bad format", () => {
+      const fn = () => parse.pace("2:a7/km");
+      expect(fn).to.throw(Error, "Time format not recognized: 2:a7");
     });
   });
 });
