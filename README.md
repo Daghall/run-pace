@@ -3,8 +3,19 @@ Calculate running pace, time or length by providing the other two.
 
 # Table of contents
 <!-- toc start -->
- - [Installation](#installation)
- - [Using](#using)
+ - [CLI](#cli)
+   - [Installation](#installation)
+   - [Usage](#usage)
+ - [Node module](#node-module)
+   - [Installation](#installation)
+   - [Usage](#usage)
+     - [Methods](#methods)
+       - [`calculateLength`](#calculatelength)
+         - [Example](#example)
+       - [`calculateTime`](#calculatetime)
+         - [Example](#example)
+       - [`calculatePace`](#calculatepace)
+         - [Example](#example)
    - [Parameters in detail](#parameters-in-detail)
      - [Time](#time)
        - [`[[dd:][hh:]mm:ss`](#ddhhmmss)
@@ -19,15 +30,20 @@ Calculate running pace, time or length by providing the other two.
        - [`<time>/<unit>`](#timeunit)
      - [Imperial](#imperial)
      - [Metric](#metric)
-   - [Tips and tricks](#tips-and-tricks)
-     - [Convert kilometer-pace to mile-pace](#convert-kilometer-pace-to-mile-pace)
-     - [Convert mile-pace to kilometer-pace](#convert-mile-pace-to-kilometer-pace)
+ - [Tips and tricks](#tips-and-tricks)
+   - [Convert kilometer-pace to mile-pace](#convert-kilometer-pace-to-mile-pace)
+   - [Convert mile-pace to kilometer-pace](#convert-mile-pace-to-kilometer-pace)
 <!-- toc end -->
 
-# Installation
+# CLI
+
+Run as a command line program.
+
+## Installation
+
 ```npm install -g run-pace```
 
-# Using
+## Usage
 ```run-pace -t <time> -l <length> -p <pace> [-i] [-m]```
 
 Two of "time", "length" and "pace" must be provided.
@@ -39,6 +55,65 @@ Parameters:
    -t, --time,      <value> (11:23, 11min23sec, 11m23s)
    -i, --imperial,  force imperial output
    -m, --metric,    force metric output
+```
+
+# Node module
+
+Use in a node script.
+
+## Installation
+```npm install run-pace```
+
+## Usage
+
+```javascript
+const runPace = require("run-pace");
+```
+
+### Methods
+
+All methods takes an object as its only argument.
+
+#### `calculateLength`
+
+Call with an object with the properties `time` and `length`.
+
+##### Example
+```javascript
+const length = runPase.calculateLength({
+  time: "45m",
+  pace: "4:30/km",
+});
+
+console.log(length); // 10km
+```
+
+#### `calculateTime`
+
+Call with an object with the properties `pace` and `length`.
+
+##### Example
+```javascript
+const time = runPase.calculateTime({
+  length: "10km",
+  pace: "4:30/km",
+});
+
+console.log(time); // 45:00
+```
+
+#### `calculatePace`
+
+Call with an object with the properties `time` and `length`.
+
+##### Example
+```javascript
+const pace = runPase.calculatePace({
+  time: "45m",
+  length: "10km",
+});
+
+console.log(pace); // 4:30/km
 ```
 
 ## Parameters in detail
@@ -118,15 +193,15 @@ Default output is kilometers. Use this switch to force output in miles.
 
 If miles are given in [pace](#pace) or [length](#length) output will be in miles as well. Use this switch to force output in kilometers.
 
-## Tips and tricks
+# Tips and tricks
 
-### Convert kilometer-pace to mile-pace
+## Convert kilometer-pace to mile-pace
 ```
 run-pace -t 7m15s -l 1mi -m
 4:30/km
 ```
 
-### Convert mile-pace to kilometer-pace
+## Convert mile-pace to kilometer-pace
 ```
 run-pace -t 4:30 -l 1k -i
 7:15/mi
