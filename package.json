@@ -1,6 +1,6 @@
 {
   "name": "run-pace",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Calculate running pace",
   "main": "./lib/run-pace.js",
   "bin": "./bin/cli.js",
