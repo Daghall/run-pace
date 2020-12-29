@@ -21,7 +21,7 @@
     "minutes"
   ],
   "author": "Markus Daghall",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Daghall/run-pace/issues"
   },
