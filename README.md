@@ -80,7 +80,7 @@ Call with an object with the properties `time` and `length`.
 
 ##### Example
 ```javascript
-const length = runPase.calculateLength({
+const length = runPace.calculateLength({
   time: "45m",
   pace: "4:30/km",
 });
@@ -94,7 +94,7 @@ Call with an object with the properties `pace` and `length`.
 
 ##### Example
 ```javascript
-const time = runPase.calculateTime({
+const time = runPace.calculateTime({
   length: "10km",
   pace: "4:30/km",
 });
@@ -108,7 +108,7 @@ Call with an object with the properties `time` and `length`.
 
 ##### Example
 ```javascript
-const pace = runPase.calculatePace({
+const pace = runPace.calculatePace({
   time: "45m",
   length: "10km",
 });
