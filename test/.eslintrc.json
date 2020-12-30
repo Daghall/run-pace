@@ -5,6 +5,7 @@
   },
   "globals": {
     "expect": false,
+    "beforeEach": false,
     "describe": false,
     "it": false
   }
