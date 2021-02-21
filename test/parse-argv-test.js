@@ -16,18 +16,18 @@ describe("parseArgv", () => {
     expect(result).to.throw(Error, "Flags is malformed");
   });
 
-  it("unrecocnized argument", () => {
+  it("unrecognized argument", () => {
     const argv = baseArgs.concat(["--invalid"]);
     const flags = [];
     const result = parseArgv.bind(null, argv, flags);
-    expect(result).to.throw(Error, "Unregognized argument: --invalid");
+    expect(result).to.throw(Error, "Unrecognized argument: --invalid");
   });
 
-  it("unrecocnized argument", () => {
+  it("Unrecognized argument", () => {
     const argv = baseArgs.concat(["invalid"]);
     const flags = [];
     const result = parseArgv.bind(null, argv, flags);
-    expect(result).to.throw(Error, "Unregognized argument: invalid");
+    expect(result).to.throw(Error, "Unrecognized argument: invalid");
   });
 
   it("short form", () => {
