@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Run pace</title>
+    <link rel="stylesheet" href="www/style.css">
+  </head>
+  <body>
+    <form>
+      <div>
+        <label for="length">Length</label><input type="text" id="length" placeholder="1km" tabindex="1"> <button type="button" id="length-clear" tabindex="-1">X</button>
+      </div>
+      <div>
+        <label for="time">Time</label><input type="text" id="time" placeholder="11:23" tabindex="2"> <button type="button" id="time-clear" tabindex="-1">X</button>
+      </div>
+      <div>
+        <label for="pace">Pace</label><input type="text" id="pace" placeholder="4:30/km" tabindex="3"> <button type="button" id="pace-clear" tabindex="-1">X</button>
+      </div>
+      <div>
+        <label>Unit</label><input type="radio" name="unit" value="metric" id="metric" checked><label for="metric">Metric</label>
+        <input type="radio" name="unit" value="imperial" id="imperial"><label for="imperial">Imperial</label>
+      </div>
+      <div>
+        <button type="button" id="calculate">Calculate</button>
+        <button type="reset" tabindex="-1">Reset</button>
+      </div>
+      <div id="result"></div>
+      <div id="error"></div>
+    </form>
+    <div>
+      <br>
+      <a href="https://github.com/Daghall/run-pace">Code, npm, and more...</a>
+    </div>
+    <script src="./www/require-polyfill.js" data-main="./www/web.js" data-project-root="../"></script>
+  </body>
+</html>

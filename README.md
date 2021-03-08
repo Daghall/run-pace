@@ -1,6 +1,8 @@
 # run-pace
 Calculate running pace, time or length by providing the other two.
 
+Interactive demo: https://daghall.github.io/run-pace/
+
 # Table of contents
 <!-- toc start -->
  - [CLI](#cli)
