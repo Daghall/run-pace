@@ -30,6 +30,11 @@ describe("run pace", () => {
       expect(result).to.equal("4:00/mi");
     });
 
+    it("defaults to kilometers if no unit given", () => {
+      const result = rp.calculatePace({time: "4min", length: "1"});
+      expect(result).to.equal("4:00/km");
+    });
+
     it("slow runner", () => {
       const result = rp.calculatePace({time: "1day12h3s", length: "1k"});
       expect(result).to.equal("1:12:00:03/km");
@@ -67,7 +72,17 @@ describe("run pace", () => {
   });
 
   describe("calculateTime", () => {
-    it("pace without unit, half-marathon", () => {
+    it("no units", () => {
+      const result = rp.calculateTime({pace: "4:47", length: "1"});
+      expect(result).to.equal("4:47");
+    });
+
+    it("no units, imperial flag", () => {
+      const result = rp.calculateTime({pace: "4:47", length: "1", imperial: true});
+      expect(result).to.equal("4:47");
+    });
+
+    it("pace without unit, defaults to kilometers, half-marathon", () => {
       const result = rp.calculateTime({pace: "4:47", length: "hm"});
       expect(result).to.equal("1:40:55");
     });
@@ -80,6 +95,21 @@ describe("run pace", () => {
     it("pace per mile, one mile", () => {
       const result = rp.calculateTime({pace: "4:00/mi", length: "1mi"});
       expect(result).to.equal("4:00");
+    });
+
+    it("length without unit, defaults to kilometers", () => {
+      const result = rp.calculateTime({pace: "7:00/km", length: "3.2"});
+      expect(result).to.equal("22:24");
+    });
+
+    it("length without unit, imperial flag", () => {
+      const result = rp.calculateTime({pace: "7:00/mi", length: "3.2", imperial: true});
+      expect(result).to.equal("22:24");
+    });
+
+    it("pace without unit, imperial flag", () => {
+      const result = rp.calculateTime({pace: "7:00", length: "3.2mi", imperial: true});
+      expect(result).to.equal("22:24");
     });
 
     it("throws if missing parameter \"pace\"", () => {
