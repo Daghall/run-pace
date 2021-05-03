@@ -137,9 +137,14 @@ describe("parse", () => {
       expect(fn).to.throw(Error, "Length argument must be a string");
     });
 
-    it("throws if missing unit", () => {
-      const fn = () => parse.length("2");
-      expect(fn).to.throw(Error, "Length is missing unit: 2");
+    it("defaults to km if no unit is given", () => {
+      const result = parse.length("2");
+      expect(result).to.equal(2000);
+    });
+
+    it("defaults to miles if no unit is given, and imperial", () => {
+      const result = parse.length("2", true);
+      expect(result).to.equal(3219);
     });
 
     it("throws if bad format", () => {
