@@ -50,7 +50,7 @@ Run as a command line program.
 ```npm install -g run-pace```
 
 ## Usage
-```run-pace -t <time> -l <length> -p <pace> [-i] [-m]```
+```run-pace -t <time> -l <length> -p <pace> [-i] [-m] [-s]```
 
 Two of "time", "length" and "pace" must be provided.  
 "Speed" is only valid when (only) pace is given or calculated
