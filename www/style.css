@@ -27,25 +27,34 @@ input[type="text"] {
   width: 80px;
 }
 
-input[type="radio"] {
+input[type="radio"],
+input[type="checkbox"] {
   padding: 0;
   margin: 0;
   cursor: pointer;
 }
 
+input[type="text"]::placeholder {
+  color: darkgrey;
+}
+
 #result {
-  margin: 10px 8px;
+  font-weight: bold;
+  margin: 12px 8px;
+  padding: 5px 0;
 }
 
 #result:empty {
   display: none;
 }
+
 #error {
   border: 2px solid darkred;
   background: lightpink;
   display: inline-block;
   color: darkred;
   margin: 10px 8px;
+  white-space: pre;
 }
 
 #error:empty {

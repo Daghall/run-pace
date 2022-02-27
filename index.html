@@ -9,17 +9,20 @@
   <body>
     <form>
       <div>
-        <label for="length">Length</label><input type="text" id="length" placeholder="1km" tabindex="1"> <button type="button" id="length-clear" tabindex="-1">X</button>
+        <label for="length" title="<value><unit> (10k, 10km, 10mi, 10000m, hm, ma)&#13;&#10;If no unit is given, it is inferred from the Unit below">Length</label><input type="text" id="length" placeholder="1km" tabindex="1"> <button type="button" id="length-clear" tabindex="-1" title="Clear length field">X</button>
       </div>
       <div>
-        <label for="time">Time</label><input type="text" id="time" placeholder="11:23" tabindex="2"> <button type="button" id="time-clear" tabindex="-1">X</button>
+        <label for="time" title="<value> (11:23, 11min23sec, 11m23s)">Time</label><input type="text" id="time" placeholder="11:23" tabindex="2"> <button type="button" id="time-clear" tabindex="-1" title="Clear time field">X</button>
       </div>
       <div>
-        <label for="pace">Pace</label><input type="text" id="pace" placeholder="4:30/km" tabindex="3"> <button type="button" id="pace-clear" tabindex="-1">X</button>
+        <label for="pace" title="<value>/<unit> (4:30/km, 4m30s/mi)&#13;&#10;If no unit is given, it is inferred from the Unit below">Pace</label><input type="text" id="pace" placeholder="4:30/km" tabindex="3"> <button type="button" id="pace-clear" tabindex="-1" title="Clear pace field">X</button>
       </div>
       <div>
         <label>Unit</label><input type="radio" name="unit" value="metric" id="metric" checked><label for="metric">Metric</label>
         <input type="radio" name="unit" value="imperial" id="imperial"><label for="imperial">Imperial</label>
+      </div>
+      <div>
+        <label>Speed</label><input type="checkbox" name"speed" value="speed" id="speed">
       </div>
       <div>
         <button type="button" id="calculate">Calculate</button>

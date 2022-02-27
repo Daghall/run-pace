@@ -24,6 +24,7 @@ describe("cli test", () => {
     mockRunPace.calculateLength = chai.spy();
     mockRunPace.calculatePace = chai.spy();
     mockRunPace.calculateTime = chai.spy();
+    mockRunPace.paceToSpeed = chai.spy();
     fakeProcess = {
       stdout: {
         write: chai.spy(),
@@ -39,8 +40,11 @@ describe("cli test", () => {
     expect(mockRunPace.calculateLength).to.not.have.been.called;
     expect(mockRunPace.calculatePace).to.not.have.been.called;
     expect(mockRunPace.calculateTime).to.not.have.been.called;
+    expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
     expect(fakeProcess.stdout.write).to.have.been.called.once;
-    expect(fakeProcess.stderr.write).to.have.been.called.once.with("Two of \"time\", \"length\" and \"pace\" must be provided\n");
+    expect(fakeProcess.stderr.write).to.have.been.called.once.with("Two of \"time\", \"length\" and \"pace\" must be provided.\n" +
+      "\"speed\" is only valid when (only) pace is given or calculated.\n");
   });
 
   params.forEach((param) => {
@@ -49,8 +53,11 @@ describe("cli test", () => {
       expect(mockRunPace.calculateLength).to.not.have.been.called;
       expect(mockRunPace.calculatePace).to.not.have.been.called;
       expect(mockRunPace.calculateTime).to.not.have.been.called;
+      expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
       expect(fakeProcess.stdout.write).to.have.been.called.once;
-      expect(fakeProcess.stderr.write).to.have.been.called.once.with("Two of \"time\", \"length\" and \"pace\" must be provided\n");
+      expect(fakeProcess.stderr.write).to.have.been.called.once.with("Two of \"time\", \"length\" and \"pace\" must be provided.\n" +
+      "\"speed\" is only valid when (only) pace is given or calculated.\n");
     });
   });
 
@@ -68,6 +75,8 @@ describe("cli test", () => {
         calledArgs[key.slice(2)] = value;
         expect(mockRunPace[getMethodName(key)]).to.not.have.been.called;
       });
+      expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
       expect(mockRunPace[calledMethod]).to.have.been.called.once.with(calledArgs);
     });
   });
@@ -77,6 +86,8 @@ describe("cli test", () => {
     expect(mockRunPace.calculateLength).to.not.have.been.called;
     expect(mockRunPace.calculatePace).to.not.have.been.called;
     expect(mockRunPace.calculateTime).to.not.have.been.called;
+    expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
     expect(fakeProcess.stdout.write).to.have.been.called.once;
     expect(fakeProcess.stderr.write).to.have.been.called.once.with("Too many arguments. Only two of \"time\", \"length\" and \"pace\" may be provided at any time\n");
   });
@@ -95,6 +106,8 @@ describe("cli test", () => {
       expect(mockRunPace.calculateLength).to.have.been.called.once.with(calledArgs);
       expect(mockRunPace.calculatePace).to.not.have.been.called;
       expect(mockRunPace.calculateTime).to.not.have.been.called;
+      expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
       expect(fakeProcess.stdout.write).to.have.been.called.once;
       expect(fakeProcess.stderr.write).to.not.have.been.called;
     });
@@ -105,9 +118,56 @@ describe("cli test", () => {
     expect(mockRunPace.calculateLength).to.not.have.been.called;
     expect(mockRunPace.calculatePace).to.not.have.been.called;
     expect(mockRunPace.calculateTime).to.not.have.been.called;
+    expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
     expect(fakeProcess.stdout.write).to.have.been.called.once;
     expect(fakeProcess.stderr.write).to.have.been.called.once.with("Conflicting parameters: \"metric\" and \"imperial\" cannot be provided at the same time\n");
   });
+
+  it("speed from pace", () => {
+    cli(baseArgs.concat(...params.slice(-1), "-s"), fakeProcess);
+    expect(mockRunPace.calculateLength).to.not.have.been.called;
+    expect(mockRunPace.calculatePace).to.not.have.been.called;
+    expect(mockRunPace.calculateTime).to.not.have.been.called;
+    expect(mockRunPace.paceToSpeed).to.have.been.called.once;
+
+    expect(fakeProcess.stdout.write).to.have.been.called.once;
+    expect(fakeProcess.stderr.write).to.not.have.been.called;
+  });
+
+  it("speed from length and time", () => {
+    cli(baseArgs.concat(...params.slice(0, -1), "-s"), fakeProcess);
+    expect(mockRunPace.calculateLength).to.not.have.been.called;
+    expect(mockRunPace.calculatePace).to.have.been.called;
+    expect(mockRunPace.calculateTime).to.not.have.been.called;
+    expect(mockRunPace.paceToSpeed).to.have.been.called;
+
+    expect(fakeProcess.stdout.write).to.have.been.called.once;
+    expect(fakeProcess.stderr.write).to.not.have.been.called;
+  });
+
+  it("speed is not valid with length and pace", () => {
+    cli(baseArgs.concat(params[0], params[2], "-s"), fakeProcess);
+    expect(mockRunPace.calculateLength).to.not.have.been.called;
+    expect(mockRunPace.calculatePace).to.have.been.called;
+    expect(mockRunPace.calculateTime).to.not.have.been.called;
+    expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
+    expect(fakeProcess.stdout.write).to.have.been.called.once;
+    expect(fakeProcess.stderr.write).to.have.been.called.with("\"speed\" is only valid when (only) pace is given or calculated.\n");
+  });
+
+  it("speed is not valid with time and pace", () => {
+    cli(baseArgs.concat(...params.slice(1), "-s"), fakeProcess);
+    expect(mockRunPace.calculateLength).to.not.have.been.called;
+    expect(mockRunPace.calculatePace).to.have.been.called;
+    expect(mockRunPace.calculateTime).to.not.have.been.called;
+    expect(mockRunPace.paceToSpeed).to.not.have.been.called;
+
+    expect(fakeProcess.stdout.write).to.have.been.called.once;
+    expect(fakeProcess.stderr.write).to.have.been.called.with("\"speed\" is only valid when (only) pace is given or calculated.\n");
+  });
+
 });
 
 function cloneArray(arr) {

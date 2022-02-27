@@ -23,7 +23,7 @@ describe("parseArgv", () => {
     expect(result).to.throw(Error, "Unrecognized argument: --invalid");
   });
 
-  it("Unrecognized argument", () => {
+  it("unrecognized argument", () => {
     const argv = baseArgs.concat(["invalid"]);
     const flags = [];
     const result = parseArgv.bind(null, argv, flags);

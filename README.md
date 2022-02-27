@@ -8,6 +8,7 @@ Interactive demo: https://daghall.github.io/run-pace/
  - [CLI](#cli)
    - [Installation](#installation)
    - [Usage](#usage)
+   - [Examples](#examples)
  - [Node module](#node-module)
    - [Installation](#installation)
    - [Usage](#usage)
@@ -32,9 +33,12 @@ Interactive demo: https://daghall.github.io/run-pace/
        - [`<time>/<unit>`](#timeunit)
      - [Imperial](#imperial)
      - [Metric](#metric)
+     - [Speed](#speed)
  - [Tips and tricks](#tips-and-tricks)
    - [Convert kilometer-pace to mile-pace](#convert-kilometer-pace-to-mile-pace)
    - [Convert mile-pace to kilometer-pace](#convert-mile-pace-to-kilometer-pace)
+   - [Convert kilometer-pace to km/h](#convert-kilometer-pace-to-kmh)
+   - [Convert mile-pace to mph](#convert-mile-pace-to-mph)
 <!-- toc end -->
 
 # CLI
@@ -48,7 +52,8 @@ Run as a command line program.
 ## Usage
 ```run-pace -t <time> -l <length> -p <pace> [-i] [-m]```
 
-Two of "time", "length" and "pace" must be provided.
+Two of "time", "length" and "pace" must be provided.  
+"Speed" is only valid when (only) pace is given or calculated
 
 ```
 Parameters:
@@ -57,6 +62,22 @@ Parameters:
    -t, --time,      <value> (11:23, 11min23sec, 11m23s)
    -i, --imperial,  force imperial output
    -m, --metric,    force metric output
+   -s, --speed,     output speed instead of pace
+```
+
+## Examples
+```
+run-pace -p 4:50/km -t 1hour
+12.41 km
+
+run-pace -p 4:50/km -l 3.5km
+16:55
+
+run-pace -p 4:30/km -s -i
+8.3 mph
+
+run-pace -l 3 -t 15:00
+5:00/km
 ```
 
 # Node module
@@ -146,11 +167,13 @@ Only one unit needs to be provided.
 - `3hrs15sec`
 - `23m16s`
 
---- 
+---
 
 ### Length
 
-If length is provided in miles, imperial output is enabled.
+Defaults to kilometers. If length is provided in miles, imperial output is implicitly enabled, but can be overridden using the [metric](#metric) switch.
+
+If no unit is given, the type is inferred from the [metric](#metric)/[imperial](#imperial) flags, and/or the unit given in the [pace](#pace) field.
 
 #### `X<unit>`
 `X` is a number, including optional decimal point
@@ -159,6 +182,7 @@ If length is provided in miles, imperial output is enabled.
 - Kilometers: `km` or `k`
 - Meters: `m`
 - Miles: `mi`
+- Blank: defaults to kilometers
 
 #### `<constant>`
 
@@ -175,13 +199,13 @@ If length is provided in miles, imperial output is enabled.
 
 ### Pace
 
-If pace is provided in miles, imperial output is enabled.
+Defaults to kilometer pace. If length is provided in miles, imperial output is implicitly enabled, but can be overridden using the [metric](#metric) switch.
 
 #### `<time>/<unit>`
 
 `<time>` as specified [above](#time)
 
-`<unit>` is `km` or `mi`
+`<unit>` is `km` or `mi` if explicitly given. Left blank it defaults to `km` or is inferred from other given parameters
 
 ---
 
@@ -195,6 +219,14 @@ Default output is kilometers. Use this switch to force output in miles.
 
 If miles are given in [pace](#pace) or [length](#length) output will be in miles as well. Use this switch to force output in kilometers.
 
+---
+
+### Speed
+
+Output speed in instead of pace. Units used are _km/h_ or _mph_ depending on types/options specified.
+
+Only valid if pace is given or calculated.
+
 # Tips and tricks
 
 ## Convert kilometer-pace to mile-pace
@@ -207,4 +239,16 @@ run-pace -t 7m15s -l 1mi -m
 ```
 run-pace -t 4:30 -l 1k -i
 7:15/mi
+```
+
+## Convert kilometer-pace to km/h
+```
+run-pace -p 4:55/km -s
+12.2 km/h
+```
+
+## Convert mile-pace to mph
+```
+run-pace -p 4:00/mi -s
+15 mph
 ```
