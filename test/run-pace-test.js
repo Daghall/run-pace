@@ -158,5 +158,71 @@ describe("run pace", () => {
       const fn = rp.calculateLength.bind(null, {pace: "4:00/km"});
       expect(fn).to.throw();
     });
+
+    it("throws if options object is missing", () => {
+      const fn = rp.calculateLength.bind(null, null);
+      expect(fn).to.throw();
+    });
+  });
+
+  describe("speed", () => {
+    describe("paceToSpeed", () => {
+      it("metric", () => {
+        const result = rp.paceToSpeed({pace: "5:00/km", speed: true});
+        expect(result).to.equal("12 km/h");
+      });
+
+      it("imperial", () => {
+        const result = rp.paceToSpeed({pace: "4:00/mi", speed: true});
+        expect(result).to.equal("15 mph");
+      });
+
+      it("metric, force imperial", () => {
+        const result = rp.paceToSpeed({pace: "6:00/km", speed: true, imperial: true});
+        expect(result).to.equal("6.2 mph");
+      });
+
+      it("imperial, force metric", () => {
+        const result = rp.paceToSpeed({pace: "6:00/mi", speed: true, metric: true});
+        expect(result).to.equal("16.1 km/h");
+      });
+
+      it("throws if pace is missing", () => {
+        const fn = rp.paceToSpeed.bind(null, {});
+        expect(fn).to.throw("Missing parameter: \"pace\" must be specified");
+      });
+
+      it("throws if invalid pace", () => {
+        const fn = rp.paceToSpeed.bind(null, {pace: "not a pace"});
+        expect(fn).to.throw("Time is missing one or more units: not a pace");
+      });
+
+      it("throws if missing options object", () => {
+        const fn = rp.paceToSpeed.bind(null);
+        expect(fn).to.throw("Missing parameter: \"pace\" must be specified");
+      });
+    });
+
+    describe("calculatePace with speed flag", () => {
+      it("metric", () => {
+        const result = rp.calculatePace({time: "6:00", length: "1km", speed: true});
+        expect(result).to.equal("10 km/h");
+      });
+
+      it("imperial", () => {
+        const result = rp.calculatePace({time: "6:00", length: "1mi", speed: true});
+        expect(result).to.equal("10 mph");
+      });
+
+      it("metric, force imperial", () => {
+        const result = rp.calculatePace({time: "6:00", length: "1km", speed: true, imperial: true});
+        expect(result).to.equal("6.2 mph");
+      });
+
+      it("imperial, force metric", () => {
+        const result = rp.calculatePace({time: "6:00", length: "1mi", speed: true, metric: true});
+        expect(result).to.equal("16.1 km/h");
+      });
+    });
   });
 });

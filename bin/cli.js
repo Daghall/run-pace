@@ -11,7 +11,10 @@ const flags = [
   {short: "t", long: "time"},
   {short: "i", long: "imperial"},
   {short: "m", long: "metric"},
+  {short: "s", long: "speed"},
 ];
+
+const speedError = "\"speed\" is only valid when (only) pace is given or calculated.";
 
 
 function cli(argv, nodeProcess) {
@@ -26,13 +29,21 @@ function cli(argv, nodeProcess) {
     if (options.time && options.length && options.pace) {
       throw new Error("Too many arguments. Only two of \"time\", \"length\" and \"pace\" may be provided at any time");
     } else if (options.time && options.pace) {
+      if (options.speed) {
+        throw new Error(speedError);
+      }
       result = runPace.calculateLength(options);
     } else if (options.time && options.length) {
       result = runPace.calculatePace(options);
     } else if (options.pace && options.length) {
+      if (options.speed) {
+        throw new Error(speedError);
+      }
       result = runPace.calculateTime(options);
+    } else if (options.pace && options.speed) {
+      result = runPace.paceToSpeed(options);
     } else {
-      throw new Error("Two of \"time\", \"length\" and \"pace\" must be provided");
+      throw new Error(`Two of "time", "length" and "pace" must be provided.\n${speedError}`);
     }
 
     nodeProcess.stdout.write(`${result}\n`);
@@ -43,7 +54,8 @@ function cli(argv, nodeProcess) {
   + "   -p, --pace,      <value>/<unit> (4:30/km, 4m30s/mi)\n"
   + "   -t, --time,      <value> (11:23, 11min23sec, 11m23s)\n"
   + "   -i, --imperial,  force imperial output\n"
-  + "   -m, --metric,    force metric output\n",
+  + "   -m, --metric,    force metric output\n"
+  + "   -s, --speed,     output speed instead of pace\n",
     );
   }
 }
