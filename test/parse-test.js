@@ -69,6 +69,11 @@ describe("parse", () => {
       const fn = () => parse.time("23:a7");
       expect(fn).to.throw(Error, "Time format not recognized: 23:a7");
     });
+
+    it("throws if unrecognized format", () => {
+      const fn = () => parse.time("01:12:58:13:21");
+      expect(fn).to.throw(Error, "Time format not recognized: 01:12:58:13:21");
+    });
   });
 
   describe("length", () => {
