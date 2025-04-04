@@ -80,5 +80,8 @@
     "strict": [2, "global"],
     "yoda": [1, "never"],
     "comma-dangle": [1, "always-multiline"]
-  }
+  },
+    "ignorePatterns": [
+    "www/require-polyfill.js"
+  ]
 }
