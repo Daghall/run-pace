@@ -3,7 +3,7 @@
 const expect = require("chai").expect;
 const parseArgv = require("../lib/parse-argv.js");
 
-const baseArgs = ["/path/to/node", "/path/to/script.js"];
+const baseArgs = [ "/path/to/node", "/path/to/script.js" ];
 
 describe("parseArgv", () => {
   it("incorrect argv", () => {
@@ -17,14 +17,14 @@ describe("parseArgv", () => {
   });
 
   it("unrecognized argument", () => {
-    const argv = baseArgs.concat(["--invalid"]);
+    const argv = baseArgs.concat([ "--invalid" ]);
     const flags = [];
     const result = parseArgv.bind(null, argv, flags);
     expect(result).to.throw(Error, "Unrecognized argument: --invalid");
   });
 
   it("unrecognized argument", () => {
-    const argv = baseArgs.concat(["invalid"]);
+    const argv = baseArgs.concat([ "invalid" ]);
     const flags = [];
     const result = parseArgv.bind(null, argv, flags);
     expect(result).to.throw(Error, "Unrecognized argument: invalid");
@@ -39,10 +39,10 @@ describe("parseArgv", () => {
       "GAMMA",
     ]);
     const flags = [
-      {short: "a", long: "alpha"},
-      {short: "b", long: "beta"},
-      {short: "d", long: "delta"},
-      {short: "g", long: "gamma"},
+      { short: "a", long: "alpha" },
+      { short: "b", long: "beta" },
+      { short: "d", long: "delta" },
+      { short: "g", long: "gamma" },
     ];
     const result = parseArgv(argv, flags);
     expect(result).to.deep.equal({
@@ -62,10 +62,10 @@ describe("parseArgv", () => {
       "GAMMA",
     ]);
     const flags = [
-      {short: "a", long: "alpha"},
-      {short: "b", long: "beta"},
-      {short: "d", long: "delta"},
-      {short: "g", long: "gamma"},
+      { short: "a", long: "alpha" },
+      { short: "b", long: "beta" },
+      { short: "d", long: "delta" },
+      { short: "g", long: "gamma" },
     ];
     const result = parseArgv(argv, flags);
     expect(result).to.deep.equal({
@@ -82,8 +82,8 @@ describe("parseArgv", () => {
       "-b",
     ]);
     const flags = [
-      {short: "a", long: "alpha"},
-      {short: "b", long: "beta"},
+      { short: "a", long: "alpha" },
+      { short: "b", long: "beta" },
     ];
     const result = parseArgv(argv, flags);
     expect(result).to.deep.equal({

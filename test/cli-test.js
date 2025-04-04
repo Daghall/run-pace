@@ -5,18 +5,16 @@ const chaiSpies = require("chai-spies");
 const expect = chai.expect;
 const proxyquire = require("proxyquire");
 const mockRunPace = {};
-const cli = proxyquire("../bin/cli.js", {
-  "../lib/run-pace.js": mockRunPace,
-});
+const cli = proxyquire("../bin/cli.js", { "../lib/run-pace.js": mockRunPace });
 
-const baseArgs = ["/path/to/node", "/path/to/script.js"];
+const baseArgs = [ "/path/to/node", "/path/to/script.js" ];
 let fakeProcess;
 chai.use(chaiSpies);
 
 const params = [
-  ["--length", "10km"],
-  ["--time", "45m"],
-  ["--pace", "4:30/km"],
+  [ "--length", "10km" ],
+  [ "--time", "45m" ],
+  [ "--pace", "4:30/km" ],
 ];
 
 describe("cli test", () => {
@@ -26,12 +24,8 @@ describe("cli test", () => {
     mockRunPace.calculateTime = chai.spy();
     mockRunPace.paceToSpeed = chai.spy();
     fakeProcess = {
-      stdout: {
-        write: chai.spy(),
-      },
-      stderr: {
-        write: chai.spy(),
-      },
+      stdout: { write: chai.spy() },
+      stderr: { write: chai.spy() },
     };
   });
 
@@ -71,7 +65,7 @@ describe("cli test", () => {
       cli(baseArgs.concat(...callParams), fakeProcess);
 
       const calledArgs = {};
-      callParams.forEach(([key, value]) => {
+      callParams.forEach(([ key, value ]) => {
         calledArgs[key.slice(2)] = value;
         expect(mockRunPace[getMethodName(key)]).to.not.have.been.called;
       });
@@ -92,9 +86,9 @@ describe("cli test", () => {
     expect(fakeProcess.stderr.write).to.have.been.called.once.with("Too many arguments. Only two of \"time\", \"length\" and \"pace\" may be provided at any time\n");
   });
 
-  ["metric", "imperial"].forEach((flag) => {
+  [ "metric", "imperial" ].forEach((flag) => {
     const callParams = params.slice(1);
-    const calledArgs = callParams.reduce((acc, [key, value]) => {
+    const calledArgs = callParams.reduce((acc, [ key, value ]) => {
       acc[key.slice(2)] = value;
       return acc;
     }, {});
@@ -175,7 +169,7 @@ function cloneArray(arr) {
 }
 
 function removeElement(arr, index) {
-  const [[removedElement]] = arr.splice(index, 1);
+  const [ [ removedElement ] ] = arr.splice(index, 1);
   return removedElement;
 }
 

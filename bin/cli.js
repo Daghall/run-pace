@@ -6,16 +6,15 @@ const parseArgv = require("../lib/parse-argv.js");
 const runPace = require("../lib/run-pace.js");
 
 const flags = [
-  {short: "l", long: "length"},
-  {short: "p", long: "pace"},
-  {short: "t", long: "time"},
-  {short: "i", long: "imperial"},
-  {short: "m", long: "metric"},
-  {short: "s", long: "speed"},
+  { short: "l", long: "length" },
+  { short: "p", long: "pace" },
+  { short: "t", long: "time" },
+  { short: "i", long: "imperial" },
+  { short: "m", long: "metric" },
+  { short: "s", long: "speed" },
 ];
 
 const speedError = "\"speed\" is only valid when (only) pace is given or calculated.";
-
 
 function cli(argv, nodeProcess) {
   try {
@@ -55,7 +54,7 @@ function cli(argv, nodeProcess) {
   + "   -t, --time,      <value> (11:23, 11min23sec, 11m23s)\n"
   + "   -i, --imperial,  force imperial output\n"
   + "   -m, --metric,    force metric output\n"
-  + "   -s, --speed,     output speed instead of pace\n",
+  + "   -s, --speed,     output speed instead of pace\n"
     );
   }
 }
