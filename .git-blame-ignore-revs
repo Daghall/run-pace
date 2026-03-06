@@ -1,0 +1,8 @@
+# Commit hashes should be long form!
+# Github automatically uses this file in blames.
+#
+# Automatically ignore this file with config:
+# git config --local blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Bonnier News eslint config
+1cfe023b5c7d084d3753e060ce9a6bf6cc66b8dd
