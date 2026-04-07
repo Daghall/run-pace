@@ -87,6 +87,11 @@ describe("parse", () => {
       expect(result).to.equal(10520);
     });
 
+    it("parses length in X,Yk form", () => {
+      const result = parse.length("10,52k");
+      expect(result).to.equal(10520);
+    });
+
     it("parses length in Xkm form", () => {
       const result = parse.length("10km");
       expect(result).to.equal(10000);
