@@ -4,6 +4,10 @@
   "description": "Calculate running pace",
   "main": "./lib/run-pace.js",
   "bin": "./bin/cli.js",
+  "files": [
+    "bin",
+    "lib"
+  ],
   "directories": {
     "test": "test"
   },
